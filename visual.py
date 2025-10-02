@@ -7,7 +7,7 @@ from tkinter.messagebox import showinfo
 
 app_caesar_chiper = tk.Tk()
 app_caesar_chiper.geometry("600x600")
-app_caesar_chiper.title("Encrypt dan Ecrypt")
+app_caesar_chiper.title("Encrypt dan Decrypt")
 app_caesar_chiper.resizable(False, False)
 app_caesar_chiper.configure(bg="black")
 
@@ -42,6 +42,7 @@ def decrypt_text():
     try:
         shift = int(entry_shift.get())
         hasil = caesar_decrypt(text, shift)
+        
         showinfo("Hasil Dekripsi", f"Data terdekripsi: {hasil}")
     except ValueError:
         showinfo("Error", "Keys harus berupa angka!")
@@ -54,4 +55,5 @@ btn_encrypt.pack(pady=20)
 btn_decrypt = tk.Button(app_caesar_chiper, text="Decrypt", command=decrypt_text)
 btn_decrypt.pack()
 
+# Mainloop
 app_caesar_chiper.mainloop()
