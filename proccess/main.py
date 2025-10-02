@@ -13,8 +13,8 @@ def caesar_encrypt(kata, keys):
 
     return hasil_encrypt
 
-# def caesar_decrypt(kata, keys):
-#     return caesar_encrypt(kata, 26 - keys)
+def caesar_decrypt(kata, keys):
+    return caesar_encrypt(kata, 26 - keys)
 
 # while True:
     
