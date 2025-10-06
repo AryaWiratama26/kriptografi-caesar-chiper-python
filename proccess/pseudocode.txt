@@ -1,0 +1,68 @@
+PROGRAM CaesarCipher
+
+    FUNGSI caesar_encrypt(kata, keys)
+        HASIL_ENCRYPT = ""
+        UNTUK SETIAP karakter DI kata LAKUKAN
+            JIKA karakter ADALAH HURUF KAPITAL MAKA
+                // Geser huruf kapital: (ASCII(karakter) - ASCII('A') + keys) mod 26 + ASCII('A')
+                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter_terenkripsi
+            SEBALIKNYA JIKA karakter ADALAH huruf kecil MAKA
+                // Geser huruf kecil: (ASCII(karakter) - ASCII('a') + keys) mod 26 + ASCII('a')
+                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter_terenkripsi
+            SELAIN ITU MAKA
+                // Biarkan karakter non-alfabet (angka, spasi, simbol) tetap sama
+                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter
+            AKHIR JIKA
+        AKHIR UNTUK
+        KEMBALIKAN HASIL_ENCRYPT
+    AKHIR FUNGSI
+
+
+    FUNGSI caesar_decrypt(kata, keys)
+        // Dekripsi adalah enkripsi dengan kunci (26 - keys)
+        KEMBALIKAN caesar_encrypt(kata, 26 - keys)
+    AKHIR FUNGSI
+
+
+    // Program Utama
+
+    ULANGI TERUS
+        CETAK "Masukan kata : "
+        BACA DATA_INPUT
+        CETAK "Masukan Key : "
+        BACA JUMLAH_KEY SEBAGAI INTEGER
+        CETAK "1.Encrypt\n2.Decrypt\nPilihan Kamu : "
+        BACA OPSI SEBAGAI INTEGER
+
+        JIKA OPSI SAMA DENGAN 1 MAKA
+            HASIL_ENCRYPT = caesar_encrypt(DATA_INPUT, JUMLAH_KEY)
+            CETAK HASIL_ENCRYPT
+            CETAK "Apakah ingin di decrypt (y/n) : "
+            BACA IS_DECRYPT
+
+            JIKA IS_DECRYPT SAMA DENGAN 'y' ATAU IS_DECRYPT SAMA DENGAN 'Y' MAKA
+                CETAK caesar_decrypt(HASIL_ENCRYPT, JUMLAH_KEY)
+            SELAIN ITU MAKA
+                CETAK "Input Tidak Valid"
+            AKHIR JIKA
+        
+        SEBALIKNYA JIKA OPSI SAMA DENGAN 2 MAKA
+            CETAK caesar_decrypt(DATA_INPUT, JUMLAH_KEY)
+        
+        SELAIN ITU MAKA
+            CETAK "Input tidak valid (Masukan antara 1 dan 2)"
+        AKHIR JIKA
+
+        CETAK "\n--------------------------------------------------\n"
+
+        CETAK "Apakah mau jalankan ulang program (y/n) : "
+        BACA IS_DONE
+
+        JIKA IS_DONE SAMA DENGAN 'n' ATAU IS_DONE SAMA DENGAN 'N' MAKA
+            KELUAR DARI ULANGAN (BREAK)
+        AKHIR JIKA
+    AKHIR ULANGI
+
+    CETAK "\nProgram Berakhir"
+
+AKHIR PROGRAM
