@@ -1,68 +1,59 @@
-PROGRAM CaesarCipher
+Fungsi CAESAR_ENCRYPT(kata, keys)
+    HASIL_ENCRYPT = ""
+    
+    Untuk setiap KARAKTER dalam kata LAKUKAN:
+        Jika KARAKTER adalah huruf kapital ('A' sampai 'Z') MAKA:
+            // Geser untuk huruf kapital: (Kode_ASCII - Kode_A + kunci) modulus 26 + Kode_A
+            INDEKS_BARU = (Kode_ASCII(KARAKTER) - Kode_ASCII('A') + keys) MOD 26
+            KARAKTER_TERENKRIPSI = Karakter_dari_Kode_ASCII(INDEKS_BARU + Kode_ASCII('A'))
+            HASIL_ENCRYPT = HASIL_ENCRYPT + KARAKTER_TERENKRIPSI
+            
+        Jika KARAKTER adalah huruf kecil ('a' sampai 'z') MAKA:
+            // Geser untuk huruf kecil: (Kode_ASCII - Kode_a + kunci) modulus 26 + Kode_a
+            INDEKS_BARU = (Kode_ASCII(KARAKTER) - Kode_ASCII('a') + keys) MOD 26
+            KARAKTER_TERENKRIPSI = Karakter_dari_Kode_ASCII(INDEKS_BARU + Kode_ASCII('a'))
+            HASIL_ENCRYPT = HASIL_ENCRYPT + KARAKTER_TERENKRIPSI
+            
+        Jika TIDAK (karakter adalah simbol, angka, spasi, dll.) MAKA:
+            HASIL_ENCRYPT = HASIL_ENCRYPT + KARAKTER
+            
+    Kembalikan HASIL_ENCRYPT
+Akhir Fungsi
 
-    FUNGSI caesar_encrypt(kata, keys)
-        HASIL_ENCRYPT = ""
-        UNTUK SETIAP karakter DI kata LAKUKAN
-            JIKA karakter ADALAH HURUF KAPITAL MAKA
-                // Geser huruf kapital: (ASCII(karakter) - ASCII('A') + keys) mod 26 + ASCII('A')
-                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter_terenkripsi
-            SEBALIKNYA JIKA karakter ADALAH huruf kecil MAKA
-                // Geser huruf kecil: (ASCII(karakter) - ASCII('a') + keys) mod 26 + ASCII('a')
-                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter_terenkripsi
-            SELAIN ITU MAKA
-                // Biarkan karakter non-alfabet (angka, spasi, simbol) tetap sama
-                HASIL_ENCRYPT = HASIL_ENCRYPT + karakter
-            AKHIR JIKA
-        AKHIR UNTUK
-        KEMBALIKAN HASIL_ENCRYPT
-    AKHIR FUNGSI
+Fungsi CAESAR_DECRYPT(kata, keys)
+    // Dekripsi = Enkripsi dengan kunci (26 - keys)
+    Kembalikan CAESAR_ENCRYPT(kata, 26 - keys)
+Akhir Fungsi
 
 
-    FUNGSI caesar_decrypt(kata, keys)
-        // Dekripsi adalah enkripsi dengan kunci (26 - keys)
-        KEMBALIKAN caesar_encrypt(kata, 26 - keys)
-    AKHIR FUNGSI
-
-
-    // Program Utama
-
-    ULANGI TERUS
-        CETAK "Masukan kata : "
-        BACA DATA_INPUT
-        CETAK "Masukan Key : "
-        BACA JUMLAH_KEY SEBAGAI INTEGER
-        CETAK "1.Encrypt\n2.Decrypt\nPilihan Kamu : "
-        BACA OPSI SEBAGAI INTEGER
-
-        JIKA OPSI SAMA DENGAN 1 MAKA
-            HASIL_ENCRYPT = caesar_encrypt(DATA_INPUT, JUMLAH_KEY)
-            CETAK HASIL_ENCRYPT
-            CETAK "Apakah ingin di decrypt (y/n) : "
-            BACA IS_DECRYPT
-
-            JIKA IS_DECRYPT SAMA DENGAN 'y' ATAU IS_DECRYPT SAMA DENGAN 'Y' MAKA
-                CETAK caesar_decrypt(HASIL_ENCRYPT, JUMLAH_KEY)
-            SELAIN ITU MAKA
-                CETAK "Input Tidak Valid"
-            AKHIR JIKA
+Program UTAMA
+    Ulangi Terus-menerus LAKUKAN:
         
-        SEBALIKNYA JIKA OPSI SAMA DENGAN 2 MAKA
-            CETAK caesar_decrypt(DATA_INPUT, JUMLAH_KEY)
+        // 1. Input dari pengguna
+        DATA_INPUT = Baca_Input("Masukan kata : ")
+        JUMLAH_KEY = Ubah_ke_Integer(Baca_Input("Masukan Key : "))
+        OPSI = Ubah_ke_Integer(Baca_Input("1.Encrypt\n2.Decrypt\nPilihan Kamu : "))
         
-        SELAIN ITU MAKA
-            CETAK "Input tidak valid (Masukan antara 1 dan 2)"
-        AKHIR JIKA
-
-        CETAK "\n--------------------------------------------------\n"
-
-        CETAK "Apakah mau jalankan ulang program (y/n) : "
-        BACA IS_DONE
-
-        JIKA IS_DONE SAMA DENGAN 'n' ATAU IS_DONE SAMA DENGAN 'N' MAKA
-            KELUAR DARI ULANGAN (BREAK)
-        AKHIR JIKA
-    AKHIR ULANGI
-
-    CETAK "\nProgram Berakhir"
-
-AKHIR PROGRAM
+        // 2. Logika pilihan
+        Jika OPSI == 1 MAKA:
+            HASIL_ENCRYPT = CAESAR_ENCRYPT(DATA_INPUT, JUMLAH_KEY)
+            Tampilkan HASIL_ENCRYPT
+            
+        Jika OPSI == 2 MAKA:
+            HASIL_DECRYPT = CAESAR_DECRYPT(DATA_INPUT, JUMLAH_KEY)
+            Tampilkan HASIL_DECRYPT
+            
+        Jika TIDAK (opsi tidak valid) MAKA:
+            Tampilkan "Input tidak valid (Masukan antara 1 dan 2)"
+            
+        // 3. Pemisah dan pilihan untuk mengulang
+        Tampilkan "\n--------------------------------------------------\n"
+        
+        IS_DONE = Baca_Input("Apakah mau jalankan ulang program (y/n) : ")
+        Jika IS_DONE == 'n' ATAU IS_DONE == 'N' MAKA:
+            Hentikan_Pengulangan
+            
+    Akhir Ulangi
+    
+    Tampilkan "\nProgram Berakhir"
+Akhir Program
